@@ -1,0 +1,90 @@
+<!--<!DOCTYPE html>
+<html>
+  <head>
+    <title>Display Country Information</title>
+  </head>
+  <body>
+    <script>
+      fetch('https://restcountries.com/v3.1/all')
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(country => {
+            const name = country.name.common;
+            const region = country.region;
+            const subregion = country.subregion;
+            const population = country.population;
+            console.log(`Name: ${name}, Region: ${region}, Subregion: ${subregion}, Population: ${population}`);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>-->
+
+<!--<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rest Countries API Demo</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Rest Countries API Demo</h1>
+    <table id="countries-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Region</th>
+          <th>Subregion</th>
+          <th>Population</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script src="script.js"></script>
+  </body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Display Country Information</title>
+    <style>
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>List of Countries</h2>
+    <ul id="country-list"></ul>
+
+    <script>
+      const countryList = document.getElementById('country-list');
+      
+      fetch('https://restcountries.com/v3.1/all')
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(country => {
+            const name = country.name.common;
+            const region = country.region;
+            const subregion = country.subregion;
+            const population = country.population;
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>${name}</strong> (${region} - ${subregion}), Population: ${population}`;
+            countryList.appendChild(listItem);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>
+

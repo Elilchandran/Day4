@@ -1,0 +1,50 @@
+*Comparing two elements in JSON have the same properties without order*:
+a.let obj1={name:"person 1",age:5};
+b.let obj2={age:5,name:"person 1"};
+
+1.Comparing two elements(output:The two objects are not equal):
+ we can convert both objects to strings using JSON.stringify(), and then compare the resulting strings:
+Example:
+let obj1 = {name: "person 1", age: 5};
+let obj2 = {age: 5, name: "person 1"};
+
+if (JSON.stringify(obj1) === JSON.stringify(obj2)) {
+  console.log("The two objects are equal.");
+} else {
+  console.log("The two objects are not equal.");
+}
+OUTPUT:The two objects are not equal.
+   If the order of the properties in the two objects is different, the resulting string representations will be different, even if the actual property names and values are the same.     
+
+
+
+2.Comparing two elements(output:The two objects equal):
+     We can compare two objects using JSON.stringify() regardless of the property order, we can sort the properties of both objects before converting them to strings.
+Example:
+function sortObject(obj) {
+  return Object.keys(obj).sort().reduce((acc, key) => {
+    acc[key] = obj[key];
+    return acc;
+  }, {});
+}
+
+if (JSON.stringify(sortObject(obj1)) === JSON.stringify(sortObject(obj2))) {
+  console.log("The two objects are equal.");
+} else {
+  console.log("The two objects are not equal.");
+}
+OUTPUT:The two objects are equal.
+In this Example:
+            I. Object.keys(obj) returns an array of the property names of the input object obj.
+            II.(.sort()) sorts the array of property names alphabetically.
+            III.(.reduce() is used to build a new object with the sorted keys. It takes a function as an argument with an accumulator acc and the current property name key.
+            IV. In the function, acc[key] = obj[key] assigns the property value of obj to the corresponding property name in acc.
+             V. The function returns the acc object, which is the new object with the sorted keys.
+ Other example:
+a.let obj = { name: "Bella", age: 30, city: "New York" };
+
+let obj = { name: "Bella", age: 30, city: "New York" };//object
+let sortedObj = sortObject(obj);//Passing it through sortObject()
+console.log(obj);// OUTPUT:{ age: 30, city: "New York", name: "John" }
+      Will return a new object with the same properties and values, but sorted alphabetically by property name.
+
