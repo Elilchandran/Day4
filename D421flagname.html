@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Display Country Information</title>
-    <style>
-      ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      li {
-        margin-bottom: 10px;
-      }
-
-      h2 {
-        margin-bottom: 20px;
-      }
-    </style>
+    <title>Rest Countries API Demo</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h2>List of Countries</h2>
-    <ul id="country-list"></ul>
-
+    <h1>Rest Countries API Demo</h1>
+    <table id="countries-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Region</th>
+          <th>Subregion</th>
+          <th>Population</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
     <script>
-      const countryList = document.getElementById('country-list');
-      
-      fetch('https://restcountries.com/v3.1/all')
-        .then(response => response.json())
-        .then(data => {
-          data.forEach(country => {
-            const name = country.name.common;
-            const region = country.region;
-            const subregion = country.subregion;
-            const population = country.population;
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `<strong>${name}</strong> (${region} - ${subregion}), Population: ${population}`;
-            countryList.appendChild(listItem);
-          });
-        })
-        .catch(error => console.error(error));
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://restcountries.com/v2/all', true);
+      xhr.onload = function() {
+        const data = JSON.parse(xhr.responseText);
+        const tableBody = document.querySelector('#countries-table tbody');
+        data.forEach(function(country) {
+          const row = document.createElement('tr');
+          const nameCell = document.createElement('td');
+          nameCell.textContent = country.name;
+          row.appendChild(nameCell);
+          const regionCell = document.createElement('td');
+          regionCell.textContent = country.region;
+          row.appendChild(regionCell);
+          const subregionCell = document.createElement('td');
+          subregionCell.textContent = country.subregion;
+          row.appendChild(subregionCell);
+          const populationCell = document.createElement('td');
+          populationCell.textContent = country.population;
+          row.appendChild(populationCell);
+          tableBody.appendChild(row);
+        });
+      };
+      xhr.send();
     </script>
   </body>
 </html>
+
 
